@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Междугородние Такси - Комфортные поездки между городами</title>
+    <title>Междугородние Такси - Комфортные поездки между городами России | TaxiVer</title>
+    <meta name="description" content="Заказ междугороднего такси по России. Комфортные поездки в новые регионы, зоны СВО и приграничные территории. Рассчитайте стоимость онлайн.">
+    <meta name="keywords" content="междугороднее такси, такси между городами, заказ такси, такси Россия, такси новые регионы, такси СВО, такси ДНР, такси ЛНР">
+    <meta name="author" content="Междугородние Такси">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Междугородние Такси - Комфортные поездки между городами России">
+    <meta property="og:description" content="Заказ междугороднего такси по России. Комфортные поездки в новые регионы, зоны СВО и приграничные территории.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://taxiver.ru">
+    <meta property="og:image" content="https://taxiver.ru/static/img/og-image.jpg">
+    <meta property="og:site_name" content="TaxiVer">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://taxiver.ru">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,6 +30,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
+
+        ym(103671945, 'init', {
+            ssr:true,
+            webvisor:true,
+            clickmap:true,
+            ecommerce:"dataLayer",
+            accurateTrackBounce:true,
+            trackLinks:true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/103671945" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
     <!-- Hero Section -->
@@ -190,14 +230,17 @@
                     <div class="car-card">
                         <div class="car-image">
                             <img 
-                                src="{{ tier.image }}" 
-                                alt="{{ tier.name }}"
+                                src="{{ url_for('static', filename='img/' + tier.image_name + '.webp') }}" 
+                                alt="{{ tier.name }} - {{ tier.description }}"
                                 class="car-photo"
-                                onerror="this.src='https://via.placeholder.com/300x200?text=Car+Image'"
+                                loading="lazy"
+                                width="300"
+                                height="200"
+                                onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/' + tier.image_name + '.jpg') }}'"
                             >
                         </div>
                         <div class="car-info">
-                            <h4>{{ tier.name }}</h4>
+                            <h3>{{ tier.name }}</h3>
                             <p class="car-price">{{ tier.price_per_km }} ₽/км</p>
                             <p class="car-description">{{ tier.description }}</p>
                         </div>
@@ -274,10 +317,40 @@
         </div>
     </footer>
 
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TaxiService",
+      "name": "Междугородние Такси",
+      "description": "Комфортные поездки между городами России с расширенной географией",
+      "url": "https://taxiver.ru",
+      "telephone": "+79525798013",
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "55.7558",
+          "longitude": "37.6173"
+        },
+        "geoRadius": "3000000"
+      },
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Междугородние Такси",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "RU"
+        }
+      },
+      "priceRange": "$$"
+    }
+    </script>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/calculator.js') }}" defer></script>
 </body>
 </html>

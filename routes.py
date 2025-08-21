@@ -19,25 +19,25 @@ PRICING_TIERS = OrderedDict([
         'name': 'Эконом', 
         'price_per_km': 30, 
         'description': 'Комфортная поездка по доступной цене',
-        'image': 'https://avatars.mds.yandex.net/get-altay/7723428/2a000001840f1a01cc3e0dbd25797a0ce6db/XXL_height'
+        'image_name': 'economy'
     }),
     ('comfort', {
         'name': 'Комфорт', 
         'price_per_km': 45, 
         'description': 'Повышенный комфорт и качество',
-        'image': 'https://i.pinimg.com/originals/95/9d/33/959d33522d9aeb5318f8e1a03332afd8.jpg'
+        'image_name': 'comfort'
     }),
     ('business', {
         'name': 'Бизнес', 
         'price_per_km': 60, 
         'description': 'Премиальный сервис для деловых поездок',
-        'image': 'https://avatars.mds.yandex.net/get-autoru-vos/4304177/06fdcf269ebec167c872992f58ffea9a/1200x900'
+        'image_name': 'business'
     }),
     ('premium', {
         'name': 'Премиум', 
         'price_per_km': 80, 
         'description': 'Максимальный комфорт и роскошь',
-        'image': 'https://i.ytimg.com/vi/vjyjmyqa0i0/maxresdefault.jpg'
+        'image_name': 'premium'
     })
 ])
 

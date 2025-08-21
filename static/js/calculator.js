@@ -110,6 +110,14 @@ class TaxiCalculator {
             suggestionItem.addEventListener('click', () => {
                 this.selectCity(suggestion, type);
                 this.hideSuggestions(suggestionsId);
+                
+                // Track city selection
+                if (typeof ym !== 'undefined') {
+                    ym(103671945, 'reachGoal', 'city_selected', {
+                        city: suggestion.display_name,
+                        type: type
+                    });
+                }
             });
             
             suggestionsContainer.appendChild(suggestionItem);
@@ -196,12 +204,31 @@ class TaxiCalculator {
             if (response.ok) {
                 this.displayResults(data);
                 showNotification('Расчет выполнен успешно!', 'success');
+                
+                // Track successful calculation
+                if (typeof ym !== 'undefined') {
+                    ym(103671945, 'reachGoal', 'calculation_success', {
+                        from_city: data.from_city,
+                        to_city: data.to_city,
+                        distance: data.distance_km
+                    });
+                }
             } else {
                 this.showError(data.error || 'Ошибка при расчете маршрута');
+                
+                // Track calculation error
+                if (typeof ym !== 'undefined') {
+                    ym(103671945, 'reachGoal', 'calculation_error');
+                }
             }
         } catch (error) {
             console.error('Network error:', error);
             this.showError('Ошибка сети. Пожалуйста, проверьте подключение к интернету');
+            
+            // Track network error
+            if (typeof ym !== 'undefined') {
+                ym(103671945, 'reachGoal', 'network_error');
+            }
         } finally {
             this.isCalculating = false;
             this.setLoadingState(false);

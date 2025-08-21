@@ -1,10 +1,20 @@
 // Main JavaScript functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Track page view in Yandex Metrica
+    if (typeof ym !== 'undefined') {
+        ym(103671945, 'hit', window.location.href);
+    }
+
     // Smooth scrolling for navigation
     window.scrollToCalculator = function() {
         document.getElementById('calculator').scrollIntoView({ 
             behavior: 'smooth' 
         });
+        
+        // Track scroll event
+        if (typeof ym !== 'undefined') {
+            ym(103671945, 'reachGoal', 'scroll_to_calculator');
+        }
     };
 
     // Floating contact button functionality
@@ -21,6 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (contactOpen) {
                 contactOptions.classList.add('active');
                 contactToggle.innerHTML = '<i class="fas fa-times"></i>';
+                
+                // Track contact button click
+                if (typeof ym !== 'undefined') {
+                    ym(103671945, 'reachGoal', 'contact_button_click');
+                }
             } else {
                 contactOptions.classList.remove('active');
                 contactToggle.innerHTML = '<i class="fas fa-phone"></i>';
@@ -284,15 +299,31 @@ function submitBookingForm() {
     .then(data => {
         if (data.success) {
             showBookingSuccess();
+            
+            // Track successful booking
+            if (typeof ym !== 'undefined') {
+                ym(103671945, 'reachGoal', 'booking_success');
+            }
+            
             // Reset form
             document.getElementById('bookingForm').reset();
         } else {
             showBookingError(data.message || 'Ошибка при отправке заявки');
+            
+            // Track booking error
+            if (typeof ym !== 'undefined') {
+                ym(103671945, 'reachGoal', 'booking_error');
+            }
         }
     })
     .catch(error => {
         console.error('Error:', error);
         showBookingError('Сетевая ошибка. Пожалуйста, попробуйте позже.');
+        
+        // Track network error
+        if (typeof ym !== 'undefined') {
+            ym(103671945, 'reachGoal', 'network_error');
+        }
     })
     .finally(() => {
         setBookingLoading(false);

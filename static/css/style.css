@@ -12,6 +12,7 @@
     --border-radius: 12px;
     --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Global Styles */
@@ -22,10 +23,11 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-family);
     line-height: 1.6;
     color: var(--dark-color);
     background-color: var(--white);
+    text-rendering: optimizeSpeed;
 }
 
 /* Hero Section */
@@ -43,7 +45,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center;
+    background: url('../img/hero-bg.webp') no-repeat center center;
     background-size: cover;
 }
 
@@ -372,20 +374,22 @@ body {
 
 .car-photo {
     width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover;
     border-radius: 10px;
     transition: var(--transition);
+    aspect-ratio: 3/2;
 }
 
 .car-card:hover .car-photo {
     transform: scale(1.05);
 }
 
-.car-info h4 {
+.car-info h3 {
     color: var(--dark-color);
     font-weight: 700;
     margin-bottom: 10px;
+    font-size: 1.25rem;
 }
 
 .car-price {
@@ -717,4 +721,23 @@ input:valid {
 
 .car-photo[src=""]::before {
     content: "Изображение автомобиля";
+}
+
+/* SEO Optimization */
+.hero-section {
+    content-visibility: auto;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Optimize font loading */
+body {
+    font-display: swap;
 }
