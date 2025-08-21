@@ -1,5 +1,12 @@
 // Main JavaScript functionality
 document.addEventListener('DOMContentLoaded', function() {
+
+     // Debug: Check if Yandex Metrica is loaded
+    console.log('Yandex Metrica loaded:', typeof ym !== 'undefined');
+    if (typeof ym === 'undefined') {
+        console.error('Yandex Metrica is not loaded! Check the counter code in HTML');
+    }
+
     // Track page view in Yandex Metrica
     if (typeof ym !== 'undefined') {
         ym(103671945, 'hit', window.location.href);
@@ -380,3 +387,17 @@ function showBookingError(message) {
         }, 100);
     }
 }
+
+
+// Проверка загрузки Яндекс.Метрики
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        if (typeof ym !== 'function') {
+            console.error('Яндекс.Метрика не загрузилась!');
+        } else {
+            console.log('Яндекс.Метрика успешно загружена');
+            // Принудительно отправить просмотр страницы
+            ym(103671945, 'hit', window.location.href);
+        }
+    }, 2000);
+});
